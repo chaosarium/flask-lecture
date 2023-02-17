@@ -53,26 +53,7 @@ def index():
     proposed_entries = query_entry('status', 'proposed')
     planned_entries = query_entry('status', 'planned')
     rejected_entries = query_entry('status', 'rejected')
-    return f"""
-        <h1> topic list </h1> 
-        <p>Proposed: {proposed_entries}</p> 
-        <p>Planned: {planned_entries}</p>
-        <p>Rejected: {rejected_entries}</p>
-        <form action="/add" method="POST"> 
-            <input name="topic" placeholder="topic here">
-            <input type="submit" value="submit topic">
-        </form>
-        <form action="/reject" method="POST"> 
-            <input name="topic" placeholder="topic here">
-            <input name="password" type="password" placeholder="password here">
-            <input type="submit" value="reject topic">
-        </form>
-        <form action="/promote" method="POST"> 
-            <input name="topic" placeholder="topic here">
-            <input name="password" type="password" placeholder="password here">
-            <input type="submit" value="promote topic">
-        </form>
-    """
+    return render_template("nicetopiclist.html", proposed_entries=proposed_entries, planned_entries=planned_entries, rejected_entries=rejected_entries)
 
 @app.route("/add", methods=["POST"])
 def add_topic():
