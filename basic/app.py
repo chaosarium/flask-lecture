@@ -72,6 +72,28 @@ def api():
         "quote": "hello world",
     }
 
+# JSON api with arg
+@app.route("/api/<string>")
+def api_with_arg(string):
+    if string == 'world':
+        return {
+            "foo": "fooo",
+            "bar": "barr",
+            "quote": f"THE WORLD DOESN'T CARE",
+        }
+
+    return {
+        "foo": "fooo",
+        "bar": "barr",
+        "quote": f"hello from {string.upper()}",
+    }
+
+import art as art
+# get art
+@app.route("/art/<text>")
+def make_art(text):
+    output = art.text2art(text)
+    return f"<pre>{output}</pre>"
 
 # === TESTING ===
 # with app.test_request_context():
