@@ -195,4 +195,6 @@ What we need:
 - Some interface to send `POST` requests
 - UI design (maybe) (implemented on the [stylish-topiclist](https://github.com/chaosarium/flask-lecture/tree/stylish-topiclist) branch)
 
+![pic](https://share.cleanshot.com/jm93GWWQlpxmyZPKy13f/download)
+
 ## Lab project — TBD
