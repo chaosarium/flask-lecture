@@ -8,6 +8,7 @@ body {
             #3041aa 10px,
             #212f7b 10px,
             #212f7b 20px);
+    min-height: 100vh;
 }
 
 div.container {

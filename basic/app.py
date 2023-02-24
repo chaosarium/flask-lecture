@@ -9,7 +9,7 @@ from flask import Flask
 from flask import url_for # helps you get route from function name
 from flask import request # now we can also use different HTTP methods
 from flask import render_template # for rendering html templates
-from utils.math import fact
+from utils.math import fact, fasterCryptarithm
 
 # === SETUP ===
 app = Flask(__name__)
@@ -87,6 +87,23 @@ def api_with_arg(string):
         "bar": "barr",
         "quote": f"hello from {string.upper()}",
     }
+
+# JSON api with arg
+@app.route("/api/cryptarithm/<puzzle>")
+def cryptarithm_api(puzzle):
+    solution = fasterCryptarithm(puzzle)
+    if solution != None:
+        return {
+            "puzzle": puzzle,
+            "solved": True,
+            "solution": solution,
+        }
+    else:
+        return {
+            "puzzle": puzzle,
+            "solved": False,
+            "solution": None,
+        }
 
 import art as art
 # get art
