@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+
+
+body {
+    font-family: "IBM Plex Mono";
+    background: repeating-linear-gradient(45deg,
+            #3041aa,
+            #3041aa 10px,
+            #212f7b 10px,
+            #212f7b 20px);
+}
+
+div.container {
+    margin: 32px auto;
+    max-width: 800px;
+    background-color: rgb(247, 249, 250);
+    padding: 32px;
+    border-radius: 10px;
+    border: rgba(180, 160, 180, 0.653) 2px solid;
+}
+
+h1 {
+    margin-top: 0;
+    font-weight: 700;
+    color: #660ed1;
+}
+
+h2 {
+    color: #c82e0b;
+}
+
+input[type="text"], input[type="password"] {
+    border: rgba(180, 160, 180, 0.653) 2px solid;
+    border-radius: 5px;
+    padding: 4px 8px;
+    background-color: rgba(180, 160, 180, 0.353);
+}
+
+input[type="text"]:focus-visible, input[type="password"]:focus-visible {
+    outline: rgba(180, 160, 180, 0.653) 2px solid;
+}
+
+input[type="submit"] {
+    border: rgba(160, 163, 180, 0.653) 2px solid;
+    border-radius: 5px;
+    padding: 4px 8px;
+    background-color: rgba(160, 164, 180, 0.353);
+}
+
+input[type="submit"]:hover {
+    outline: rgba(160, 163, 180, 0.653) 2px solid;
+}
+
+label {
+    font-weight: 600;
+}
