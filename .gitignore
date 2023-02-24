@@ -1,3 +1,4 @@
 flask-lec.paw
 .vscode
 topiclist/db.json
+**/.vercel
