@@ -14,7 +14,7 @@ from tinydb import TinyDB, where, Query # database
 
 # === SETUP ===
 app = Flask(__name__)
-db = TinyDB('db.json')
+db = TinyDB('/tmp/db.json')
 
 # === DATABASE ===
 # insert one dic as entry
@@ -43,9 +43,9 @@ def update_entry(doc_id, field_name, new_value):
     return db.update({field_name: new_value}, doc_ids=[doc_id])
     
 # === tests ===
-print(get_entry_id('int', 2))
+# print(get_entry_id('int', 2))
 # print(remove_entry(4))
-print(update_entry(12, 'topic', 'super topic+'))
+# print(update_entry(12, 'topic', 'super topic+'))
 
 # === ROUTES ===
 @app.route("/")
