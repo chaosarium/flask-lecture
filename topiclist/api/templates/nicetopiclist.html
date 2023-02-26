@@ -72,6 +72,8 @@
             {% endfor %}
         </ul>
 
+        {% if logged_in %}
+
         <h2>Actions</h2>
 
         <form action="/add" method="POST"> 
@@ -79,6 +81,10 @@
             <input type="text" name="topic" placeholder="topic here">
             <input type="submit" value="submit topic">
         </form>
+
+        {% endif %}
+
+
 
         {% if is_admin %}
             <br>

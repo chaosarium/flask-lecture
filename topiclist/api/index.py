@@ -17,7 +17,7 @@ from tinydb import TinyDB, where, Query # database
 # === SETUP ===
 app = Flask(__name__)
 app.secret_key = 'lalala' # don't do this
-db = TinyDB('./db.json')
+db = TinyDB('/tmp/db.json')
 
 # === DATABASE ===
 # insert one dic as entry
@@ -144,15 +144,17 @@ def add_topic():
     print(f'we got new proposed topic: {topic}')
     # security vulnerability!! but we're skipping safety check
     
-    if get_entry_id('topic', topic) != None:
-        # topic already exists
-        print('topic already exists, not inserting')
-        return redirect("/")
-    else:
-        # insert topic as proposed
-        insert_entry({'topic': topic, 'status': 'proposed'})
-        print(f'inserted topic {topic}')
-        return redirect("/")
+    if ('username' in session) and (user_exists(session['username'])):
+        if get_entry_id('topic', topic) != None:
+            # topic already exists
+            print('topic already exists, not inserting')
+            return redirect("/")
+        else:
+            # insert topic as proposed
+            insert_entry({'topic': topic, 'status': 'proposed'})
+            print(f'inserted topic {topic}')
+            return redirect("/")
+    return "you need to log in to propose topic"
 
 @app.route("/reject", methods=["POST"])
 def reject_topic():
