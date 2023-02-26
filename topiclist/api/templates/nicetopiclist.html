@@ -9,6 +9,41 @@
 </head>
 <body>
 
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="container" style="color: red">
+            <p>info</p>
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        {% if logged_in %}
+            <p>logged in as {{logged_in_as}}</p>
+            <form action="/logout">
+                <input type="submit" value="logout">
+            </form>
+        {% else %}
+            <p>not logged in. Log in here:</p>   
+            <form method="post" action="/login">
+                <input name="username" type="text" placeholder="username">
+                <input name="password" type="password" placeholder="password">
+                <input type="submit" value="login">
+            </form>
+            <p>Or register here:</p>   
+            <form method="post" action="/register">
+                <input name="username" type="text" placeholder="username">
+                <input name="password" type="password" placeholder="password">
+                <input type="submit" value="login">
+            </form>
+        {% endif %}
+    </div>
+
     <div class="container">
 
         <h1> 15113 Topic List </h1> 
@@ -45,25 +80,23 @@
             <input type="submit" value="submit topic">
         </form>
 
-        <br>
+        {% if is_admin %}
+            <br>
 
-        <form action="/reject" method="POST"> 
-            <label>Topic</label>
-            <input type="text" name="topic" placeholder="topic here">
-            <label>Password</label>
-            <input name="password" type="password" placeholder="password here">
-            <input type="submit" value="reject topic">
-        </form>
+            <form action="/reject" method="POST"> 
+                <label>Topic</label>
+                <input type="text" name="topic" placeholder="topic here">
+                <input type="submit" value="reject topic">
+            </form>
 
-        <br>
-                
-        <form action="/promote" method="POST"> 
-            <label>Topic</label>
-            <input type="text" name="topic" placeholder="topic here">
-            <label>Password</label>
-            <input name="password" type="password" placeholder="password here">
-            <input type="submit" value="promote topic">
-        </form>
+            <br>
+                    
+            <form action="/promote" method="POST"> 
+                <label>Topic</label>
+                <input type="text" name="topic" placeholder="topic here">
+                <input type="submit" value="promote topic">
+            </form>
+        {% endif %}
 
     </div>
 
