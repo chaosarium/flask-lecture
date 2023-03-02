@@ -4,7 +4,7 @@ Flask is a Python web framework, i.e. something that lets you build web apps!
 
 One cool thing you can then do is to make different machines talk to each other — you can even have things written in different languages talk to each
 
-But first, how does the web work? See [[HTTP]] if not already familiar.
+But first, how does the web work? See [HTTP](docs/HTTP.md) if not already familiar.
 
 ## Setting up a Flask app
 
@@ -123,7 +123,7 @@ def api():
 
 What we need:
 
-- Some database to store data. See [[database]]
+- Some database to store data. See [database](docs/database.md)
 - A home page that displays data (`GET`)
 - Places to update data using `POST`
   - `/add` topic
@@ -138,6 +138,6 @@ What we need:
 
 There are many options for deploying your Flask app. We'll use PythonAnywhere because of its simplicity.
 
-See [[deployment]]
+See [deployment](docs/deployment.md)
 
 ## Lab project — TBD
