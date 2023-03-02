@@ -17,7 +17,7 @@ from tinydb import TinyDB, where, Query # database
 # === SETUP ===
 app = Flask(__name__)
 app.secret_key = 'lalala' # don't do this
-db = TinyDB('/tmp/db.json')
+db = TinyDB('db.json')
 
 # === DATABASE ===
 # insert one dic as entry
