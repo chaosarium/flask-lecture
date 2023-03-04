@@ -1,9 +1,3 @@
-# === TASK ===
-"""
-We will build a topic list for 15113. People can submit topics and people with
-the right password can promote or reject topics.
-"""
-
 # === IMPORTS ===
 from flask import Flask
 from flask import url_for # helps you get route from function name

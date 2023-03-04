@@ -121,6 +121,8 @@ def api():
 
 ## Example project — a 15113 topic list
 
+Demo link: https://chaosarium.pythonanywhere.com
+
 What we need:
 
 - Some database to store data. See [database](docs/database.md)
