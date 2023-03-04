@@ -1,7 +1,7 @@
 # Introduction to Flask
 
-Demo project -> https://chaosarium.pythonanywhere.com
-Code on GitHub -> https://github.com/chaosarium/flask-lecture
+Demo project -> https://chaosarium.pythonanywhere.com  
+Code on GitHub -> https://github.com/chaosarium/flask-lecture  
 Docs -> https://chaosarium.gitbook.io/113-flask
 
 Flask is a Python web framework, i.e. something that lets you build web apps!
