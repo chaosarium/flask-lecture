@@ -1,5 +1,9 @@
 # Introduction to Flask
 
+Demo project -> https://chaosarium.pythonanywhere.com
+Code on GitHub -> https://github.com/chaosarium/flask-lecture
+Docs -> https://chaosarium.gitbook.io/113-flask
+
 Flask is a Python web framework, i.e. something that lets you build web apps!
 
 One cool thing you can then do is to make different machines talk to each other — you can even have things written in different languages talk to each
