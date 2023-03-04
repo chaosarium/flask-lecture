@@ -14,30 +14,33 @@ app.secret_key = 'lalala' # don't do this
 db = TinyDB('db.json')
 
 # === DATABASE ===
+def get_table(table):
+    return db.table(table)
+
 # insert one dic as entry
-def insert_entry(entry):
+def insert_entry(table, entry):
     assert(isinstance(entry, dict))
     # entry should look like {'field1': val1, 'field2': val2}
-    return db.insert(entry) # returns the id associated with record
+    return get_table(table).insert(entry) # returns the id associated with record
 
 # return array of results
-def query_entry(field_name, value):
-    return db.search(where(field_name) == value)
+def query_entry(table, field_name, value):
+    return get_table(table).search(where(field_name) == value)
 
 # returns id of one match
-def get_entry_id(field_name, value):
-    elem = db.get(where(field_name) == value) # gets one
+def get_entry_id(table, field_name, value):
+    elem = get_table(table).get(where(field_name) == value) # gets one
     return None if elem == None else elem.doc_id
 
 # remove entry by doc_id
-def remove_entry(doc_id):
-    assert(db.contains(doc_id=doc_id))
-    return db.remove(doc_ids=[doc_id]) # returns a list of all removed ids
+def remove_entry(table, doc_id):
+    assert(get_table(table).contains(doc_id=doc_id))
+    return get_table(table).remove(doc_ids=[doc_id]) # returns a list of all removed ids
 
 # update value of key by doc_id
-def update_entry(doc_id, field_name, new_value):
-    assert(db.contains(doc_id=doc_id))
-    return db.update({field_name: new_value}, doc_ids=[doc_id])
+def update_entry(table, doc_id, field_name, new_value):
+    assert(get_table(table).contains(doc_id=doc_id))
+    return get_table(table).update({field_name: new_value}, doc_ids=[doc_id])
     
 # === tests ===
 # print(get_entry_id('int', 2))
@@ -47,15 +50,15 @@ def update_entry(doc_id, field_name, new_value):
 # === ROUTES ===
 @app.route("/")
 def index():
-    proposed_entries = query_entry('status', 'proposed')
-    planned_entries = query_entry('status', 'planned')
-    rejected_entries = query_entry('status', 'rejected')
+    proposed_entries = query_entry("topics", 'status', 'proposed')
+    planned_entries = query_entry("topics", 'status', 'planned')
+    rejected_entries = query_entry("topics", 'status', 'rejected')
     
     print('session', session)
     if 'username' in session:
         logged_in = True
         logged_in_as = session["username"]
-        if users[session['username']]['admin']:
+        if user_is_admin(logged_in_as):
             is_admin = True
         else:
             is_admin = False
@@ -77,20 +80,22 @@ def index():
 # === LOGIN MANAGEMENT === 
 # (see also https://flask.palletsprojects.com/en/2.2.x/quickstart/#sessions)
 
-users = {"abc": {"password": "123", "admin": False}, "admin": {"password": "admin", "admin": True}}
-
 def user_exists(username):
-    return username in users
+    return query_entry("users", "username", username) != []
 
 def password_correct(username, password):
-    return user_exists(username) and users[username]['password'] == password
+    return (user_exists(username)
+            and 
+            query_entry("users", "username", username)[0]['password'] == password)
 
 def new_user(username, password):
     assert(not user_exists(username))
-    users[username] = {"password": password, "admin": False}
+    insert_entry("users", {"username": username, "password": password, "admin": False}) 
 
-def is_admin(username):
-    return user_exists(username) and users[username]['admin'] == True
+def user_is_admin(username):
+    return (user_exists(username) 
+            and 
+            query_entry("users", "username", username)[0]['admin'] == True)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -139,13 +144,13 @@ def add_topic():
     # security vulnerability!! but we're skipping safety check
     
     if ('username' in session) and (user_exists(session['username'])):
-        if get_entry_id('topic', topic) != None:
+        if get_entry_id("topics", 'topic', topic) != None:
             # topic already exists
             print('topic already exists, not inserting')
             return redirect("/")
         else:
             # insert topic as proposed
-            insert_entry({'topic': topic, 'status': 'proposed'})
+            insert_entry("topics", {'topic': topic, 'status': 'proposed'})
             print(f'inserted topic {topic}')
             return redirect("/")
     return "you need to log in to propose topic"
@@ -156,15 +161,15 @@ def reject_topic():
       
     topic = str(request.form['topic'])
     
-    if ('username' in session) and (user_exists(session['username'])) and is_admin(session['username']):
-        if get_entry_id('topic', topic) == None:
+    if ('username' in session) and (user_exists(session['username'])) and user_is_admin(session['username']):
+        if get_entry_id("topics", "topics", 'topic', topic) == None:
             # topic does not exist
             print('topic DNE, not rejecting')
             return redirect("/")
         else:
             # reject topic 
-            id = get_entry_id('topic', topic)
-            update_entry(id, 'status', 'rejected')
+            id = get_entry_id("topics", 'topic', topic)
+            update_entry("topics", id, 'status', 'rejected')
             print(f'rejected topic {topic}')
             return redirect("/")
         
@@ -176,15 +181,15 @@ def promote_topic():
     
     topic = str(request.form['topic'])
     
-    if ('username' in session) and (user_exists(session['username'])) and is_admin(session['username']):
-        if get_entry_id('topic', topic) == None:
+    if ('username' in session) and (user_exists(session['username'])) and user_is_admin(session['username']):
+        if get_entry_id("topics", 'topic', topic) == None:
             # topic does not exist
             print('topic DNE, not promoteing')
             return redirect("/")
         else:
             # promote topic 
-            id = get_entry_id('topic', topic)
-            update_entry(id, 'status', 'planned')
+            id = get_entry_id("topics", 'topic', topic)
+            update_entry("topics", id, 'status', 'planned')
             print(f'promoteed topic {topic}')
             return redirect("/")
         
