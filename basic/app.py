@@ -6,21 +6,20 @@ Also, make sure it's Flask 2.2.x. 1.something definitely have different things
 
 # === IMPORTS ===
 from flask import Flask
-from flask import url_for # helps you get route from function name
 from flask import request # now we can also use different HTTP methods
 from flask import render_template # for rendering html templates
 from utils.math import fact, fasterCryptarithm
 
 # === SETUP ===
 app = Flask(__name__)
-# app = Flask(__name__, static_url_path="static", ...)
+# app = Flask(__name__, static_url_path="static", ...) # you can add config here
 
 # === ROUTES ===
 @app.route("/")
 def root_route():
     return "Hello, World!" 
     # return string of html (default) to the browser (though this doesn't quite look like html yet)
-    return "<h1>Hello, World!</h1>" 
+    return "<h1>Hello, World!</h1>" # this looks more like html
 
 # Note that Flask will redirect you to `/projects`
 @app.route('/projects/')
@@ -112,28 +111,7 @@ def make_art(text):
     output = art.text2art(text)
     return f"<pre>{output}</pre>"
 
-# === TESTING ===
-# with app.test_request_context():
-#     print(url_for('root_route'))
-#     print(url_for('about'))
-#     print(url_for('projects', username='John Doe'))
-
 # === RUNNING ===
-"""
-There is a way to start a server with the flask command. You also have the option of enabling debug mode.
-
-```shell
-flask run
-```
-
-or
-
-```shell
-flask --debug run
-```
-"""
-
-# Or you can do this
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port = 5000)
     # app.run(host='0.0.0.0', port = 5000) # this makes it public

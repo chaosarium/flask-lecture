@@ -1,3 +1,11 @@
+# This is to show you that you can write programmes to send HTTP requests
+# It doesn't have to be written in Python—you can send requests from, for
+# example, a Java programme to your Flask app written in Python, isn't 
+# that cool?
+
+# Note that this only works with the version of topiclist without 
+# authentication. 
+
 import argparse, requests
 
 def post_topic(topic):

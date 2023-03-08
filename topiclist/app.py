@@ -1,12 +1,11 @@
 # === IMPORTS ===
 from flask import Flask
-from flask import url_for # helps you get route from function name
 from flask import request # now we can also use different HTTP methods
 from flask import render_template # for rendering html templates
 from flask import redirect
 from flask import session # this is how we keep users logged in
 from flask import flash # flashing messages to user
-from tinydb import TinyDB, where, Query # database
+from tinydb import TinyDB, where # database
 
 # === SETUP ===
 app = Flask(__name__)
@@ -42,11 +41,6 @@ def update_entry(table, doc_id, field_name, new_value):
     assert(get_table(table).contains(doc_id=doc_id))
     return get_table(table).update({field_name: new_value}, doc_ids=[doc_id])
     
-# === tests ===
-# print(get_entry_id('int', 2))
-# print(remove_entry(4))
-# print(update_entry(12, 'topic', 'super topic+'))
-
 # === ROUTES ===
 @app.route("/")
 def index():

@@ -10,6 +10,13 @@ One cool thing you can then do is to make different machines talk to each other 
 
 But first, how does the web work? See [HTTP](docs/HTTP.md) if not already familiar.
 
+## Files in the repo/zip file
+
+- `basic` contains demo of Flask app setup and basic routes
+- `topiclist` contains the demo project
+- `docs` is the documentation source
+- `starter_code` is where you can start implementing the demo project (or something else)
+
 ## Setting up a Flask app
 
 Create a file `app.py` (usually they call it that and it works)
@@ -123,6 +130,28 @@ def api():
     }
 ```
 
+## Running a Flask app
+
+There is a way to start a server with the flask command. You also have the option of enabling debug mode.
+
+```shell
+flask run
+```
+
+or
+
+```shell
+flask --debug run
+```
+
+or you can make the app run when you run the python file by writing:
+
+```py
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port = 5000) # this runs it on local network
+    # app.run(host='0.0.0.0', port = 5000) # this makes it public
+```
+
 ## Example project — a 15113 topic list
 
 Demo link: https://chaosarium.pythonanywhere.com
@@ -145,5 +174,3 @@ What we need:
 There are many options for deploying your Flask app. We'll use PythonAnywhere because of its simplicity.
 
 See [deployment](docs/deployment.md)
-
-## Lab project — TBD
