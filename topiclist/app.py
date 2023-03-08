@@ -2,7 +2,7 @@
 from flask import Flask
 from flask import request # now we can also use different HTTP methods
 from flask import render_template # for rendering html templates
-from flask import redirect
+from flask import redirect # lets you send visitor to some other url
 from flask import session # this is how we keep users logged in
 from flask import flash # flashing messages to user
 from tinydb import TinyDB, where # database
@@ -41,36 +41,6 @@ def update_entry(table, doc_id, field_name, new_value):
     assert(get_table(table).contains(doc_id=doc_id))
     return get_table(table).update({field_name: new_value}, doc_ids=[doc_id])
     
-# === ROUTES ===
-@app.route("/")
-def index():
-    proposed_entries = query_entry("topics", 'status', 'proposed')
-    planned_entries = query_entry("topics", 'status', 'planned')
-    rejected_entries = query_entry("topics", 'status', 'rejected')
-    
-    print('session', session)
-    if 'username' in session:
-        logged_in = True
-        logged_in_as = session["username"]
-        if user_is_admin(logged_in_as):
-            is_admin = True
-        else:
-            is_admin = False
-    else:
-        logged_in = False
-        logged_in_as = None
-        is_admin = False
-    
-    return render_template(
-        "nicetopiclist.html", 
-        proposed_entries=proposed_entries, 
-        planned_entries=planned_entries, 
-        rejected_entries=rejected_entries,
-        logged_in=logged_in,
-        logged_in_as=logged_in_as,
-        is_admin=is_admin
-    )
-
 # === LOGIN MANAGEMENT === 
 # (see also https://flask.palletsprojects.com/en/2.2.x/quickstart/#sessions)
 
@@ -127,7 +97,36 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
-# === REQUEST HANDELLLING"
+# === ROUTES ===
+
+@app.route("/")
+def index():
+    proposed_entries = query_entry("topics", 'status', 'proposed')
+    planned_entries = query_entry("topics", 'status', 'planned')
+    rejected_entries = query_entry("topics", 'status', 'rejected')
+    
+    print('session', session)
+    if 'username' in session:
+        logged_in = True
+        logged_in_as = session["username"]
+        if user_is_admin(logged_in_as):
+            is_admin = True
+        else:
+            is_admin = False
+    else:
+        logged_in = False
+        logged_in_as = None
+        is_admin = False
+    
+    return render_template(
+        "nicetopiclist.html", 
+        proposed_entries=proposed_entries, 
+        planned_entries=planned_entries, 
+        rejected_entries=rejected_entries,
+        logged_in=logged_in,
+        logged_in_as=logged_in_as,
+        is_admin=is_admin
+    )
 
 @app.route("/add", methods=["POST"])
 def add_topic():
@@ -156,7 +155,7 @@ def reject_topic():
     topic = str(request.form['topic'])
     
     if ('username' in session) and (user_exists(session['username'])) and user_is_admin(session['username']):
-        if get_entry_id("topics", "topics", 'topic', topic) == None:
+        if get_entry_id("topics", "topic", topic) == None:
             # topic does not exist
             print('topic DNE, not rejecting')
             return redirect("/")
