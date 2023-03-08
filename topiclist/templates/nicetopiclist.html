@@ -11,20 +11,18 @@
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <div class="container" style="color: red">
-            <p>info</p>
-            <ul class=flashes>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+        <div class="container message-container">
+            <h4>info:</h4>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
         </div>
         {% endif %}
     {% endwith %}
 
-    <div class="container">
+    <div class="container login-container">
         {% if logged_in %}
-            <p>logged in as {{logged_in_as}}</p>
+            <p>logged in as <b>{{logged_in_as}}</b></p>
             <form action="/logout">
                 <input type="submit" value="logout">
             </form>
