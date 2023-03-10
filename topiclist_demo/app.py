@@ -203,16 +203,18 @@ def add_topic():
     
     # security vulnerability!! but we're skipping safety check
     
-    if 1+1==2: # later: authentication check: ('username' in session) and (user_exists(session['username']))
-        if 1+1==2: # check topic existance using get_entry_id(table, field, val). if topic exists it's not none
-            # topic exists
-            # redirect
-            raise NotImplemented
-        else:
-            # insert topic as proposed using insert_entry to the 'topics' table, 
-            # recall our entry looks like {'topic': _, 'status': '_'}
-            # redirect
-            raise NotImplemented
+    # if 1+1==2: # later: authentication check: ('username' in session) and (user_exists(session['username']))
+    
+    if 1+1==2: # check topic existance using get_entry_id(table, field, val). if topic exists it's not none
+        # topic exists
+        # redirect
+        raise NotImplemented
+    else:
+        # insert topic as proposed using insert_entry to the 'topics' table, 
+        # recall our entry looks like {'topic': _, 'status': '_'}
+        # redirect
+        raise NotImplemented
+    
     # return "you need to log in to propose topic"
 
 @app.route("/reject", methods=["POST"])
