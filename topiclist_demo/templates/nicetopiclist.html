@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15113 Topics</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="container message-container">
+            <h4>info:</h4>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container login-container">
+        {% if logged_in %}
+            <p>logged in as <b>{{logged_in_as}}</b></p>
+            <form action="/logout">
+                <input type="submit" value="logout">
+            </form>
+        {% else %}
+            <p>not logged in. Log in here:</p>   
+            <form method="post" action="/login">
+                <input name="username" type="text" placeholder="username">
+                <input name="password" type="password" placeholder="password">
+                <input type="submit" value="login">
+            </form>
+            <p>Or register here:</p>   
+            <form method="post" action="/register">
+                <input name="username" type="text" placeholder="username">
+                <input name="password" type="password" placeholder="password">
+                <input type="submit" value="login">
+            </form>
+        {% endif %}
+    </div>
+
+    <div class="container">
+
+        <h1> 15113 Topic List </h1> 
+        
+        <h2>Proposed</h2>
+
+        <ul>
+            {% for item in proposed_entries %}
+                <li>{{item.topic}}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Planned</h2>
+        
+        <ul>
+            {% for item in planned_entries %}
+                <li>{{item.topic}}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Rejected</h2>
+
+        <ul>
+            {% for item in rejected_entries %}
+                <li>{{item.topic}}</li>
+            {% endfor %}
+        </ul>
+
+        {% if logged_in %}
+
+        <h2>Actions</h2>
+
+        <form action="/add" method="POST"> 
+            <label>Topic</label>
+            <input type="text" name="topic" placeholder="topic here">
+            <input type="submit" value="submit topic">
+        </form>
+
+        {% endif %}
+
+
+
+        {% if is_admin %}
+            <br>
+
+            <form action="/reject" method="POST"> 
+                <label>Topic</label>
+                <input type="text" name="topic" placeholder="topic here">
+                <input type="submit" value="reject topic">
+            </form>
+
+            <br>
+                    
+            <form action="/promote" method="POST"> 
+                <label>Topic</label>
+                <input type="text" name="topic" placeholder="topic here">
+                <input type="submit" value="promote topic">
+            </form>
+        {% endif %}
+
+    </div>
+
+
+</body>
+</html>

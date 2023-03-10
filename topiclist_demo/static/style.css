@@ -1,0 +1,88 @@
+/* This is some CSS code that will hopefully make things look nice */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+
+/* html {
+    min-height: 100vh;
+    background: repeating-linear-gradient(45deg,
+        #49528d,
+        #49528d 10px,
+        #42496e 10px,
+        #42496e 20px
+    );
+    padding: 0;
+    margin: 0;
+} */
+
+/* body {
+    font-family: "IBM Plex Mono";
+    padding: 16px;
+    margin: 0;
+} */
+
+/* div.container {
+    margin: 16px auto;
+    max-width: 800px;
+    background-color: rgb(247, 249, 250);
+    padding: 32px;
+    border-radius: 10px;
+    border: rgba(180, 160, 180, 0.653) 2px solid;
+} */
+
+/* div.message-container {
+    padding: 16px 32px;
+    color: #dc4b2a;
+    background-color: rgb(255, 250, 245);
+    border: rgba(244, 169, 29, 0.653) 2px solid;
+} */
+
+/* div.login-container {
+    padding: 16px 32px;
+    background-color: rgb(238, 240, 255);
+    border: rgba(76, 29, 244, 0.653) 2px solid;
+} */
+
+/* div.login-container p {
+    margin: 16px 0 8px;
+} */
+
+/* div.login-container form {
+    margin: 8px 0 16px;
+} */
+
+
+/* h1 {
+    margin-top: 0;
+    font-weight: 700;
+    color: #660ed1;
+} */
+
+/* h2 {
+    color: #c82e0b;
+} */
+
+/* input[type="text"], input[type="password"] {
+    border: rgba(180, 160, 180, 0.653) 2px solid;
+    border-radius: 5px;
+    padding: 4px 8px;
+    background-color: rgba(180, 160, 180, 0.353);
+} */
+
+/* input[type="text"]:focus-visible, input[type="password"]:focus-visible {
+    outline: rgba(180, 160, 180, 0.653) 2px solid;
+} */
+
+/* input[type="submit"] {
+    border: rgba(160, 163, 180, 0.653) 2px solid;
+    border-radius: 5px;
+    padding: 4px 8px;
+    background-color: rgba(160, 164, 180, 0.353);
+} */
+
+/* input[type="submit"]:hover {
+    outline: rgba(160, 163, 180, 0.653) 2px solid;
+} */
+
+/* label {
+    font-weight: 600;
+} */
