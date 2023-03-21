@@ -5,7 +5,8 @@ from flask import render_template # for rendering html templates
 from utils.math import fact, fasterCryptarithm
 
 # === SETUP ===
-app = Flask(__name__)
+app = Flask('some random app (・∇・)')
+# the convention is to use __name__, but we're not packaging the app so whatever
 
 # === ROUTES ===
 @app.route("/")
@@ -93,6 +94,19 @@ import art as art
 def make_art(text):
     output = art.text2art(text)
     return f"<pre>{output}</pre>"
+
+# import requests, re
+# Something crazy
+@app.route("/api/scholar/<query>")
+def scholar(query):
+    # scrape google scholar and return article listing
+    return 418
+
+# >>> Ad hoc route begins >>>
+
+# ... any question/idea for some live coding? else demo project time
+
+# <<<  Ad hoc route ends  <<<
 
 # === RUNNING ===
 if __name__ == '__main__':

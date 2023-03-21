@@ -111,6 +111,33 @@ def make_art(text):
     output = art.text2art(text)
     return f"<pre>{output}</pre>"
 
+import requests, re
+# Something crazy
+@app.route("/api/scholar/<query>")
+def scholar(query):
+    # scrape google scholar and return article listing
+    try:
+        response = requests.get(
+            url="https://scholar.google.com/scholar",
+            params={
+                "q": f"{query}",
+            },
+        )
+        print('Response HTTP Status Code: {status_code}'.format(
+            status_code=response.status_code))
+        
+        # return response.content # basically becomes proxy
+        html_text = str(response.content)
+        listing = re.findall('<div id="gs_res_ccl">.*<\/div>', html_text)[0]
+        # https://regexper.com/#%3Cdiv%20id%3D%22gs_res_ccl%22%3E.*%3C%5C%2Fdiv%3E
+        articles = re.findall('<h3 class="gs_rt".*?<\/h3>', listing) 
+        # https://regexper.com/#%3Ch3%20class%3D%22gs_rt%22.*%3F%3C%5C%2Fh3%3E
+        return str("<br>".join(articles))
+        
+    except requests.exceptions.RequestException:
+        print('HTTP Request failed')
+        return "something went wrong. probably internet issue"
+
 # === RUNNING ===
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port = 5000)
